@@ -73,6 +73,16 @@
       font-size: 1.2em; /* Increase the font size of the button */
     }
 
+    .incrementContainer {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .incrementButton {
+      width: 25px;
+      font-size: 1em; /* Adjusted font size for increment buttons */
+    }
+
     #buttonContainer {
       text-align: center;
     }
@@ -108,27 +118,47 @@
       <tr>
         <td>Charge Rotary Kiln (Ton/h)</td>
         <td>100</td>
-        <td><input type="number" id="charge" value="100"></td>
+        <td class="incrementContainer">
+          <button type="button" class="incrementButton" onclick="incrementCharge(-10)">-</button>
+          <input type="number" id="charge" value="100">
+          <button type="button" class="incrementButton" onclick="incrementCharge(10)">+</button>
+        </td>
       </tr>
       <tr>
         <td>Setting Reduktor (%)</td>
         <td>6</td>
-        <td><input type="number" id="reduktor" value="6"></td>
+        <td class="incrementContainer">
+          <button type="button" class="incrementButton" onclick="incrementReduktor(-1)">-</button>
+          <input type="number" id="reduktor" value="6">
+          <button type="button" class="incrementButton" onclick="incrementReduktor(1)">+</button>
+        </td>
       </tr>
       <tr>
         <td>MC Contion Ore (%)</td>
         <td>23</td>
-        <td><input type="number" id="mc" value="23"></td>
+        <td class="incrementContainer">
+          <button type="button" class="incrementButton" onclick="incrementMC(-1)">-</button>
+          <input type="number" id="mc" value="23">
+          <button type="button" class="incrementButton" onclick="incrementMC(1)">+</button>
+        </td>
       </tr>
       <tr>
         <td>Kadar Ni KFO (%)</td>
         <td>1.95</td>
-        <td><input type="number" id="kadar" step="0.01" value="1.95"></td>
+        <td class="incrementContainer">
+          <button type="button" class="incrementButton" onclick="incrementKadar(-0.01)">-</button>
+          <input type="number" id="kadar" step="0.01" value="1.95">
+          <button type="button" class="incrementButton" onclick="incrementKadar(0.01)">+</button>
+        </td>
       </tr>
       <tr>
         <td>Durasi Waktu (Jam)</td>
         <td>24</td>
-        <td><input type="number" id="durasi" value="24"></td>
+        <td class="incrementContainer">
+          <button type="button" class="incrementButton" onclick="incrementDurasi(-1)">-</button>
+          <input type="number" id="durasi" value="24">
+          <button type="button" class="incrementButton" onclick="incrementDurasi(1)">+</button>
+        </td>
       </tr>
       <tr>
         <td>Koreksi Debu (%)</td>
@@ -157,6 +187,31 @@
   </div>
 
   <script>
+    function incrementCharge(value) {
+      var chargeInput = document.getElementById("charge");
+      chargeInput.value = parseInt(chargeInput.value) + value;
+    }
+
+    function incrementReduktor(value) {
+      var reduktorInput = document.getElementById("reduktor");
+      reduktorInput.value = parseInt(reduktorInput.value) + value;
+    }
+
+    function incrementMC(value) {
+      var mcInput = document.getElementById("mc");
+      mcInput.value = parseInt(mcInput.value) + value;
+    }
+
+    function incrementKadar(value) {
+      var kadarInput = document.getElementById("kadar");
+      kadarInput.value = (parseFloat(kadarInput.value) + value).toFixed(2);
+    }
+
+    function incrementDurasi(value) {
+      var durasiInput = document.getElementById("durasi");
+      durasiInput.value = parseInt(durasiInput.value) + value;
+    }
+
     function calculate() {
       var charge = document.getElementById("charge").value;
       var reduktor = document.getElementById("reduktor").value;
