@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kalkulator Produksi Crude Nikel</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #f4f4f4; /* Soothing background color */
+      padding: 10px;
+    }
+
+    #antamLogo {
+      display: block;
+      margin: 0 auto;
+      max-width: 40%; /* 40% smaller logo */
+      height: auto;
+    }
+
+    h1 {
+      color: #8b0000; /* Red color for the header text */
+    }
+
+    h2 {
+      font-size: 1.5em; /* Increase the font size of the secondary header */
+    }
+
+    #resultText {
+      font-size: 1.5em; /* Increase the font size of the result text */
+      margin-top: 20px;
+      color: green;
+      border: 2px solid green;
+      padding: 10px;
+      display: inline-block;
+      border-radius: 10px; /* Rounded corners for a smoother appearance */
+      background-color: #eafae3; /* Light green background color */
+    }
+
+    table {
+      margin: 20px auto;
+      border-collapse: collapse;
+      width: 90%; /* 90% width for better smartphone compatibility */
+    }
+
+    th, td {
+      padding: 10px;
+      border: 1px solid #ddd;
+      text-align: center;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    form {
+      text-align: left;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin: 10px 0;
+    }
+
+    input {
+      width: 80px;
+    }
+
+    button {
+      margin-top: 20px;
+      font-size: 1.2em; /* Increase the font size of the button */
+    }
+
+    #buttonContainer {
+      text-align: center;
+    }
+
+    #additionalText {
+      margin-top: 10px;
+      text-align: center; /* Center the additional text */
+    }
+
+    #credits {
+      font-family: 'Courier New', Courier, monospace; /* Tekno font */
+      font-size: 0.8em;
+      margin-top: 30px;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <img id="antamLogo" src="antam_logo.png" alt="ANTAM Logo">
+
+  <h1>Salam ANTAM, BEST!!!<br>Produksi Minimal 2.000 Ton Ni per bulan? BISA!!!</h1>
+
+  <h2>Kalkulator Produksi Crude Nikel</h2>
+
+  <form id="calculatorForm">
+    <table>
+      <tr>
+        <th>Parameter</th>
+        <th>Nilai Default</th>
+        <th>Input Baru</th>
+      </tr>
+      <tr>
+        <td>Charge Rotary Kiln (Ton/h)</td>
+        <td>100</td>
+        <td><input type="number" id="charge" value="100"></td>
+      </tr>
+      <tr>
+        <td>Setting Reduktor (%)</td>
+        <td>6</td>
+        <td><input type="number" id="reduktor" value="6"></td>
+      </tr>
+      <tr>
+        <td>MC Contion Ore (%)</td>
+        <td>23</td>
+        <td><input type="number" id="mc" value="23"></td>
+      </tr>
+      <tr>
+        <td>Kadar Ni KFO (%)</td>
+        <td>1.95</td>
+        <td><input type="number" id="kadar" step="0.01" value="1.95"></td>
+      </tr>
+      <tr>
+        <td>Durasi Waktu (Jam)</td>
+        <td>24</td>
+        <td><input type="number" id="durasi" value="24"></td>
+      </tr>
+      <tr>
+        <td>Koreksi Debu (%)</td>
+        <td>94</td>
+        <td><input type="number" id="debu" value="94"></td>
+      </tr>
+      <tr>
+        <td>Yield (%)</td>
+        <td>93</td>
+        <td><input type="number" id="yield" value="93"></td>
+      </tr>
+    </table>
+
+    <div id="buttonContainer">
+      <button type="button" onclick="calculate()">Hitung</button>
+      <button type="button" onclick="resetValues()">Refresh</button>
+    </div>
+
+    <p id="additionalText">Silahkan Update/Input Ulang Parameter Sesuai Kebutuhan</p>
+  </form>
+
+  <div id="resultText"></div>
+
+  <div id="credits">
+    Created by: PES on 20231127
+  </div>
+
+  <script>
+    function calculate() {
+      var charge = document.getElementById("charge").value;
+      var reduktor = document.getElementById("reduktor").value;
+      var mc = document.getElementById("mc").value;
+      var kadar = document.getElementById("kadar").value;
+      var durasi = document.getElementById("durasi").value;
+      var debu = document.getElementById("debu").value;
+      var yieldVal = document.getElementById("yield").value;
+
+      var result = (charge * (100 - reduktor) / 100) * ((100 - mc) / 100) * (debu / 100) * (yieldVal / 100) * (kadar / 100) * durasi;
+
+      document.getElementById("resultText").innerHTML = `<div style="border: 2px solid green; border-radius: 10px; padding: 10px; display: inline-block; font-size: 1.5em; color: green; background-color: #eafae3;">Jumlah Produksi Nikel: ${result.toFixed(2)} Ton Ni</div>`;
+    }
+
+    function resetValues() {
+      // Reset input values to default
+      document.getElementById("charge").value = 100;
+      document.getElementById("reduktor").value = 6;
+      document.getElementById("mc").value = 23;
+      document.getElementById("kadar").value = 1.95;
+      document.getElementById("durasi").value = 24;
+      document.getElementById("debu").value = 94;
+      document.getElementById("yield").value = 93;
+
+      // Clear result
+      document.getElementById("resultText").innerHTML = '';
+
+      // Inform user to update/input parameters
+      document.getElementById("additionalText").innerHTML = 'Silahkan Update/Input Ulang Parameter Sesuai Kebutuhan';
+    }
+  </script>
+
+</body>
+</html>
